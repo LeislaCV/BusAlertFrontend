@@ -25,7 +25,7 @@ function RegistrarTarjeta() {
 
         try {
             // Hacer la petición para registrar la tarjeta, enviando el token en los headers
-            const response = await axios.post('http://localhost:5000/api/tarjetas/registrar', { usuarioId: localStorage.getItem('usuarioId') }, {
+            const response = await axios.post('https://busalertbackend.onrender.com/api/tarjetas/registrar', { usuarioId: localStorage.getItem('usuarioId') }, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}` // Pasamos el token en los headers
                 }
