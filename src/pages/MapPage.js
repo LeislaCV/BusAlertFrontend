@@ -143,8 +143,9 @@ function MapPage() {
                 <InfoWindow onCloseClick={() => setSelectedBus(null)}>
                   <div>
                     <h3>Autobús: {bus.busId}</h3>
-                    <p>Conductor: {bus.driverName}</p>
-                    <p>Ruta: {bus.route}</p>
+                    <p>Nombre del Conductor: {bus.driverName}</p>
+                    <p>Calificación: {bus.rating} estrellas</p>
+                    <p>Tiempo estimado: 3 minutos</p>
                   </div>
                 </InfoWindow>
               )}
