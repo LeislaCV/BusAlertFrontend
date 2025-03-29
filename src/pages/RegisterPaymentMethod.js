@@ -4,6 +4,8 @@ import './RegistrarPaymentMethod.css';
 import visaLogo from '../images/paypal.png'
 import paypalLogo from '../images/visa.png'
 import mercadopago from '../images/mercadopago.png'
+import { useNavigate} from 'react-router-dom';
+
 
 function RegisterPaymentMethod() {
     const [method, setMethod] = useState('');
@@ -13,6 +15,9 @@ function RegisterPaymentMethod() {
     const [expiryYear, setExpiryYear] = useState('');
     const [mercadoPagoEmail, setMercadoPagoEmail] = useState('');
     const [cvc, setCvc] = useState('');
+
+    const navigate = useNavigate();
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -29,7 +34,7 @@ function RegisterPaymentMethod() {
 
         try {
             // Hacemos la solicitud POST al backend para registrar el método de pago
-            const response = await axios.post('https://busalertbackend.onrender.com/api/payment/register', paymentData);
+            const response = await axios.post('http://localhost:5000/api/payment/register', paymentData);
 
             // Puedes manejar la respuesta del backend aquí
             alert('Método de pago registrado con éxito');
@@ -168,6 +173,7 @@ function RegisterPaymentMethod() {
     
             <button className="button-method" type="submit">Registrar Método</button>
           </form>
+          <button onClick={() => navigate('/dashboard')}>Volver al Dashboard</button>
         </div>
 
         

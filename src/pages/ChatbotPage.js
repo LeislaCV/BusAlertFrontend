@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import { Container, Button, Form } from 'react-bootstrap';
 import './ChatbotPage.css'
+import { useNavigate  } from 'react-router-dom';
+
 
 function ChatbotPage() {
     const [messages, setMessages] = useState([
         { sender: 'bot', text: 'Hola, ¿en qué puedo ayudarte hoy? Elige una opción:' },
     ]);
     const [userInput, setUserInput] = useState('');
+    const navigate = useNavigate();
+    
 
     const handleOptionClick = (option) => {
         // Añadir la opción seleccionada al chat
@@ -102,9 +106,14 @@ function ChatbotPage() {
                         placeholder="Escribe un mensaje..."
                     />
                 </Form.Group>
+                <div>
                 <Button className="button-enviar" variant="primary" type="submit" style={{ marginTop: '10px' }}>
                     Enviar
                 </Button>
+                <button onClick={() => navigate('/dashboard')}>Volver al Dashboard</button>
+
+                </div>
+
             </Form>
         </Container>
     );

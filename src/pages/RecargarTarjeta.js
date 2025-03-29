@@ -6,6 +6,7 @@ import tarjetaImg from '../images/tarjeta.png';
 import nfcImg from '../images/nfc.png';
 
 
+
 function RecargarTarjeta() {
   const [amount, setAmount] = useState('');
   const [paymentMethod, setPaymentMethod] = useState('OXXO');
@@ -24,7 +25,7 @@ function RecargarTarjeta() {
     // Simulación de una solicitud para recargar la tarjeta
     try {
 
-      const response = await fetch('https://busalertbackend.onrender.com/api/tarjetas/recargar', {
+      const response = await fetch('http://localhost:5000/api/tarjetas/recargar', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -122,6 +123,8 @@ function RecargarTarjeta() {
                     </div>
                 </div>
             </div>
+            <button onClick={() => navigate('/dashboard')}>Volver al Dashboard</button>
+
     </div>
   );
 }

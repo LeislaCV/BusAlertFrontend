@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Button } from 'react-bootstrap';
+import { useNavigate,  } from 'react-router-dom';
+
 
 // Asegúrate de importar los estilos de Bootstrap en tu archivo principal (por ejemplo, index.js)
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function NotificationsPage() {
     const [notifications, setNotifications] = useState([]);
+    const navigate = useNavigate();
+    
 
     // Simulando el fetch de noticias de los autobuses
     useEffect(() => {
@@ -51,6 +55,7 @@ function NotificationsPage() {
                     </div>
                 ))}
             </div>
+            <button onClick={() => navigate('/dashboard')}>Volver al Dashboard</button>
         </div>
     );
 }

@@ -1,14 +1,16 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { GoogleMap, LoadScript, MarkerF, DirectionsRenderer, InfoWindow, Autocomplete } from '@react-google-maps/api';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Container } from 'react-bootstrap';
 import './MapPages.css';
+
 
 const mapContainerStyle = {
   width: '100%',
   height: '500px'
 };
+
 
 const centerDefault = { lat: 21.8818, lng: -102.2917 };
 
@@ -21,6 +23,8 @@ function MapPage() {
   const [busLocations, setBusLocations] = useState([]);
   const [selectedBus, setSelectedBus] = useState(null);
   const autocompleteRef = useRef(null);
+  const navigate = useNavigate();
+
 
   // Obtener ubicación del usuario y destino de la navegación
   useEffect(() => {
@@ -72,7 +76,7 @@ function MapPage() {
 
   // Cargar paradas de autobús (opcional)
   const loadBusStops = useCallback(() => {
-    axios.get('https://busalertbackend.onrender.com/api/busstops')
+    axios.get('http://localhost:5000/api/busstops')
       .then(response => {
         setStops(response.data);
       })
@@ -80,7 +84,7 @@ function MapPage() {
         console.error('Error al obtener las paradas:', err);
       });
 
-    axios.get('https://busalertbackend.onrender.com/api/location/buses')
+    axios.get('http://localhost:5000/api/location/buses')
       .then(response => {
         setBusLocations(response.data);
       })
@@ -160,8 +164,12 @@ function MapPage() {
           <h3>Información de tu ruta</h3>
           <p><strong>Distancia:</strong> {directions.routes[0].legs[0].distance.text}</p>
           <p><strong>Tiempo estimado:</strong> {directions.routes[0].legs[0].duration.text}</p>
+          <button onClick={() => navigate('/dashboard')}>Volver al Dashboard</button>
+
         </div>
+        
       )}
+
     </Container>
   );
 }
