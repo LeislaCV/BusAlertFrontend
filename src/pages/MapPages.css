@@ -36,3 +36,23 @@
 .green { background-color: #28a745; } /* Verde */
 .red { background-color: #dc3545; } /* Rojo */
 
+/* En MapPages.css */
+.route-info {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .route-info h3 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+  }
+  
+  .route-steps {
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 5px;
+  }
+

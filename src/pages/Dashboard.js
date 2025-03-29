@@ -10,8 +10,11 @@ function Dashboard() {
     const navigate = useNavigate();
     const [alerta, setAlerta] = useState('');
     const [currentTime, setCurrentTime] = useState(new Date());
-    const [searchLocation, setSearchLocation] = useState(null);
-    const [isPredicting, setIsPredicting] = useState(false);
+    const [searchLocation, setSearchLocation] = useState({
+        position: null,
+        address: null,
+        placeId: null
+    }); const [isPredicting, setIsPredicting] = useState(false);
     const [routes, setRoutes] = useState([]);
     const [selectedRoute, setSelectedRoute] = useState(null);
     const [currentLocation, setCurrentLocation] = useState(null);
@@ -96,8 +99,12 @@ function Dashboard() {
         const place = autocompleteRef.current?.getPlace();
         if (place?.geometry) {
             setSearchLocation({
-                lat: place.geometry.location.lat(),
-                lng: place.geometry.location.lng(),
+                position: {
+                    lat: place.geometry.location.lat(),
+                    lng: place.geometry.location.lng()
+                },
+                address: place.formatted_address,
+                placeId: place.place_id
             });
         }
     };
@@ -119,18 +126,18 @@ function Dashboard() {
 
     return (
         <div className="container">
-            
+
             <h1 className='Bienvenida'>Bienvenido al Dashboard</h1>
             <Button className='button-recargar' onClick={() => navigate('/recargar-tarjeta')}>Recargar Tarjeta</Button>
-            <Button className='button-registrar'  onClick={() => navigate('/registrar-tarjeta')}>Registrar Tarjeta</Button>
+            <Button className='button-registrar' onClick={() => navigate('/registrar-tarjeta')}>Registrar Tarjeta</Button>
 
             {/* Botón para registrar método de recarga */}
             <Button className='button-metodo' onClick={handleRegisterPaymentMethod}>Registrar Método de Recarga</Button>
 
-            
 
 
-            
+
+
             <Button className='button-pagar' onClick={() => navigate('/pagar-pasaje')}>Pagar Pasaje</Button>
             <Button className='button-chat' onClick={() => navigate('/chatbot')} style={{ marginTop: '10px' }}>
                 Chatbot de Soporte
@@ -149,21 +156,25 @@ function Dashboard() {
                 </Autocomplete>
 
                 <div>
-                <h3 className='ubicacion-rutas'>Las siguientes rutas pasan por tu ubicación actual</h3>
-                <h3 className='elegir-ruta'>Cual deseas elegir?</h3>
-                <ul>
-                    {routes.map((route) => (
-                        <li key={route.id}>
-                            <button className='button-ruta' onClick={() => handleRouteSelect(route)}>{route.name}</button>
-                        </li>
-                    ))}
-                </ul>
-            </div>
+                    <h3 className='ubicacion-rutas'>Las siguientes rutas pasan por tu ubicación actual</h3>
+                    <h3 className='elegir-ruta'>Cual deseas elegir?</h3>
+                    <ul>
+                        {routes.map((route) => (
+                            <li key={route.id}>
+                                <button className='button-ruta' onClick={() => handleRouteSelect(route)}>{route.name}</button>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
 
-            <h3 className='hora'>Hora actual: {formatTime(currentTime)}</h3>
-            <p style={{ fontSize: '18px', fontWeight: 'bold', color: alerta.includes('⚠️') ? 'red' : 'green' }}>{alerta}</p>
-                <button className='button-seleccionar' onClick={() => navigate('/map')}>Seleccionar</button>
-
+                <h3 className='hora'>Hora actual: {formatTime(currentTime)}</h3>
+                <p style={{ fontSize: '18px', fontWeight: 'bold', color: alerta.includes('⚠️') ? 'red' : 'green' }}>{alerta}</p>
+                <button
+                    className='button-seleccionar'
+                    onClick={() => navigate('/map', { state: { destination: searchLocation } })}
+                >
+                    Seleccionar
+                </button>
                 <GoogleMap mapContainerStyle={mapContainerStyle} center={currentLocation || center} zoom={14}>
                     {currentLocation && (
                         <MarkerF
@@ -183,7 +194,7 @@ function Dashboard() {
             </LoadScript>
 
             {/* Mostrar las rutas por defecto */}
-          
+
         </div>
     );
 }
