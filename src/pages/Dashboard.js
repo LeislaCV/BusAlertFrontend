@@ -26,6 +26,7 @@ function Dashboard() {
         width: '100%',
         height: '400px',
     };
+    
 
     const center = { lat: 21.8818, lng: -102.2917 };
 
@@ -142,6 +143,25 @@ function Dashboard() {
             <Button className='button-chat' onClick={() => navigate('/chatbot')} style={{ marginTop: '10px' }}>
                 Chatbot de Soporte
             </Button>
+            <Button onClick={handleNotificationsRedirect} style={{ position: 'relative' }}>
+                <FiBell size={30} />
+                {notifications > 0 && (
+                    <div
+                        style={{
+                            position: 'absolute',
+                            top: '-5px',
+                            right: '-5px',
+                            backgroundColor: 'red',
+                            color: 'white',
+                            borderRadius: '50%',
+                            padding: '5px 10px',
+                            fontSize: '14px',
+                        }}
+                    >
+                        {notifications}
+                    </div>
+                )}
+            </Button>
             <Button className='button-cerrar' variant="danger" onClick={() => navigate('/')}>Cerrar sesión</Button>
 
 
