@@ -24,8 +24,8 @@ function Login() {
     e.preventDefault();
     try {
       const url = isRegistering
-        ? 'http://localhost:5000/api/auth/register'
-        : 'http://localhost:5000/api/auth/login';
+        ? 'https://busalertbackend.onrender.com/api/auth/register'
+        : 'https://busalertbackend.onrender.com/api/auth/login';
 
       const response = await axios.post(url, { nombre: name, correo: email, password });
 

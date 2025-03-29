@@ -29,7 +29,7 @@ function RegisterPaymentMethod() {
 
         try {
             // Hacemos la solicitud POST al backend para registrar el método de pago
-            const response = await axios.post('http://localhost:5000/api/payment/register', paymentData);
+            const response = await axios.post('https://busalertbackend.onrender.com/api/payment/register', paymentData);
 
             // Puedes manejar la respuesta del backend aquí
             alert('Método de pago registrado con éxito');
